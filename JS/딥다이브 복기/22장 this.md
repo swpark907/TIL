@@ -94,3 +94,35 @@ Circle.getDiameter(); // circle2 { radius: 5 }
     외부 함수의 메서드와 this가 달라져 버린다면 헬퍼함수로서의 동작하기가 매우 어려움.
     
     **그럴 때 쓰는 것이 Function.prototype.apply, call, bind .**
+
+    2. **메서드 호출**
+    
+    메서드 내부 this는 **메서드를 호출한 객체**, 즉 메서드 앞의 마침표 연산자 앞에 기술한 객체가 바인딩됨.
+    
+    아래의 코드에서
+    
+    getName 메소드는 getName이란 프로퍼티가 function을 가르키고 있는 형태임
+    
+    **함수 객체가 person 자체에 포함되어 있는 형태가 아님**
+    
+    ```jsx
+    const person = {
+      name: "Lee",
+      getName() {
+        return this.name;
+      },
+    };
+    
+    console.log(person.getName());
+    const anotherPerson = {
+      name: "Kim",
+    };
+    
+    anotherPerson.getName = person.getName;
+    
+    console.log(anotherPerson.getName());
+    
+    const getName = person.getName;
+    
+    console.log(getName());
+    ```
